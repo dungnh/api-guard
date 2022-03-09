@@ -27,7 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "LoopReturns\\ApiGuard\\": "src"
+            "Chrisbjr\\ApiGuard\\": "src"
         }
     },
     "extra": {
