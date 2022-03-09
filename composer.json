@@ -1,5 +1,5 @@
 {
-    "name": "coliving/api-guard",
+    "name": "loopreturns/api-guard",
     "description": "A simple way of authenticating your APIs with API keys using Laravel",
     "keywords": [
         "api",
@@ -9,17 +9,17 @@
         "api authentication",
         "laravel"
     ],
-    "homepage": "https://github.com/dungnh/api-guard",
+    "homepage": "https://github.com/LoopReturns/api-guard",
     "authors": [
         {
-            "name": "Dzung Nguyen",
-            "email": "dungnh@gmail.com"
+            "name": "Loop Engineering",
+            "email": "fullstack@xariable.com"
         }
     ],
     "require": {
         "php": ">=5.6.4",
-        "illuminate/support": "^5.4 | ^6.0 | ^7.0 | ^8.0",
-        "illuminate/database": "^5.4 | ^6.0| ^7.0 | ^8.0",
+        "illuminate/support": "^5.4 | ^6.0 | ^7.0 | ^8.0 | ^9.0",
+        "illuminate/database": "^5.4 | ^6.0| ^7.0 | ^8.0 | ^9.0",
         "ellipsesynergie/api-response": "*"
     },
     "require-dev": {
@@ -27,7 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Chrisbjr\\ApiGuard\\": "src"
+            "LoopReturns\\ApiGuard\\": "src"
         }
     },
     "minimum-stability": "stable"
