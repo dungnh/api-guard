@@ -18,15 +18,11 @@ A simple way of authenticating your APIs with API keys using Laravel. This packa
 
 **Laravel 5.1.x: `~2.*`
 
-**Laravel 4.2.x: [`~1.*`](https://github.com/chrisbjr/api-guard/tree/laravel4) (Recently updated version for Laravel 4. Please note that there are namespace changes here)
-
-**Laravel 4.2.x: [`0.*`](https://github.com/chrisbjr/api-guard/tree/v0.7) (The version that most of you are using)
-
 ## Quick start
 
-### Installation for Laravel 5.3 to 5.4
+### Installation for Laravel
 
-Run `composer require chrisbjr/api-guard 4.*`
+Run `composer require coliving/api-guard`
 
 In your `config/app.php` add `Chrisbjr\ApiGuard\Providers\ApiGuardServiceProvider` to the end of the `providers` array
 
