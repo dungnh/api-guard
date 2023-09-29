@@ -28,11 +28,7 @@ class AuthenticateApiKey
             return $this->unauthorizedResponse();
         }
 
-        // Update this api key's last_used_at and last_ip_address
-        $apiKey->update([
-            'last_used_at'    => Carbon::now(),
-            'last_ip_address' => $request->ip(),
-        ]);
+        $lastUsedAt = Carbon::now();
 
         $apikeyable = $apiKey->apikeyable;
 
@@ -48,7 +44,15 @@ class AuthenticateApiKey
 
         event(new ApiKeyAuthenticated($request, $apiKey));
 
-        return $next($request);
+        $response = $next($request);
+
+        // Update this api key's last_used_at and last_ip_address
+        $apiKey->update([
+            'last_used_at'    => $lastUsedAt,
+            'last_ip_address' => $request->ip(),
+        ]);
+
+        return $response;
     }
 
     protected function unauthorizedResponse()
