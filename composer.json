@@ -32,7 +32,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.2.0"
+            "dev-master": "4.3.0"
         }
     },
     "minimum-stability": "stable"
