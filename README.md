@@ -10,6 +10,8 @@ A simple way of authenticating your APIs with API keys using Laravel. This packa
 - philsturgeon's [Fractal](https://github.com/thephpleague/fractal)
 - maximebeaudoin's [api-response](https://github.com/ellipsesynergie/api-response)
 
+## Laravel 11 and PHP 8.3 is finally supported!
+
 ## Laravel 5.3, 5.4 and 5.5 is finally supported!
 
 **Laravel 5.3.x onwards: `~4.*`
