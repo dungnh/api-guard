@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Chrisbjr\ApiGuard\Events\ApiKeyAuthenticated;
 use Chrisbjr\ApiGuard\Models\Device;
 use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticateApiKey
 {
@@ -28,8 +30,6 @@ class AuthenticateApiKey
             return $this->unauthorizedResponse();
         }
 
-        $lastUsedAt = Carbon::now();
-
         $apikeyable = $apiKey->apikeyable;
 
         // Bind the user or object to the request
@@ -44,15 +44,20 @@ class AuthenticateApiKey
 
         event(new ApiKeyAuthenticated($request, $apiKey));
 
-        $response = $next($request);
+        return $next($request);
+    }
 
+    /**
+     * Handle tasks after the response has been sent to the browser.
+     */
+    public function terminate(Request $request, Response $response): void
+    {
         // Update this api key's last_used_at and last_ip_address
-        $apiKey->update([
+        $lastUsedAt = Carbon::now();
+        $request->apiKey->update([
             'last_used_at'    => $lastUsedAt,
             'last_ip_address' => $request->ip(),
         ]);
-
-        return $response;
     }
 
     protected function unauthorizedResponse()
