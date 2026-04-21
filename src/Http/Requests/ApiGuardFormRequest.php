@@ -5,6 +5,7 @@ namespace Chrisbjr\ApiGuard\Http\Requests;
 use EllipseSynergie\ApiResponse\Laravel\Response;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use League\Fractal\Manager;
 
 class ApiGuardFormRequest extends FormRequest
@@ -30,5 +31,10 @@ class ApiGuardFormRequest extends FormRequest
         $response = new Response(new Manager());
 
         return $response->errorUnprocessable($errors);
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException($this->response($this->formatErrors($validator)));
     }
 }
