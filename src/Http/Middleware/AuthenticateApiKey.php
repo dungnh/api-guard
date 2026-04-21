@@ -4,7 +4,6 @@ namespace Chrisbjr\ApiGuard\Http\Middleware;
 
 use Carbon\Carbon;
 use Chrisbjr\ApiGuard\Events\ApiKeyAuthenticated;
-use Chrisbjr\ApiGuard\Models\Device;
 use Closure;
 
 class AuthenticateApiKey
@@ -43,8 +42,9 @@ class AuthenticateApiKey
             return $apikeyable;
         });
 
-        // Attach the apikey object to the request
-        $request->apiKey = $apiKey;
+        // Attach the apikey object to the request attributes.
+        // Using the attribute bag avoids dynamic property warnings on newer PHP versions.
+        $request->attributes->set('apiKey', $apiKey);
 
         event(new ApiKeyAuthenticated($request, $apiKey));
 

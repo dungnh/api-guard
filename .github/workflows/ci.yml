@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  laravel-smoke:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: "8.4"
+            laravel: "^12.0"
+          - php: "8.4"
+            laravel: "^13.0"
+          - php: "8.5"
+            laravel: "^13.0"
+
+    steps:
+      - name: Checkout package
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+          coverage: none
+
+      - name: Validate composer.json
+        run: composer validate --no-check-publish
+
+      - name: Build Laravel app and install package
+        run: |
+          set -euxo pipefail
+
+          composer create-project laravel/laravel /tmp/smoke-app "${{ matrix.laravel }}" --no-interaction --prefer-dist
+          cd /tmp/smoke-app
+
+          composer config repositories.apiguard path "${GITHUB_WORKSPACE}"
+          composer require coliving/api-guard:@dev --no-interaction --with-all-dependencies
+
+          cp .env.example .env
+          php -r "file_exists('database/database.sqlite') || touch('database/database.sqlite');"
+          php artisan key:generate --ansi
+
+          php artisan vendor:publish --provider="Chrisbjr\\ApiGuard\\Providers\\ApiGuardServiceProvider" --tag=config --force
+          php artisan vendor:publish --provider="Chrisbjr\\ApiGuard\\Providers\\ApiGuardServiceProvider" --tag=migrations --force
+
+          php artisan migrate --force
+          php artisan api-key:generate

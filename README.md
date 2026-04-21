@@ -10,7 +10,7 @@ A simple way of authenticating your APIs with API keys using Laravel. This packa
 - philsturgeon's [Fractal](https://github.com/thephpleague/fractal)
 - maximebeaudoin's [api-response](https://github.com/ellipsesynergie/api-response)
 
-## Laravel 12 and PHP 8.4 is finally supported!
+## Laravel 13 and PHP 8.4 is finally supported!
 
 ## Laravel 5.3, 5.4 and 5.5 is finally supported!
 
@@ -26,9 +26,13 @@ A simple way of authenticating your APIs with API keys using Laravel. This packa
 
 Run `composer require coliving/api-guard`
 
-In your `config/app.php` add `Chrisbjr\ApiGuard\Providers\ApiGuardServiceProvider` to the end of the `providers` array
+For local verification commands used before opening a PR, see `CONTRIBUTING.md`.
+
+Laravel package auto-discovery will register the service provider automatically.
+If you disabled auto-discovery, add `Chrisbjr\ApiGuard\Providers\ApiGuardServiceProvider` to the `providers` array in `config/app.php`.
 
 ```php
+// Only needed when package auto-discovery is disabled.
 'providers' => array(
 
     ...
